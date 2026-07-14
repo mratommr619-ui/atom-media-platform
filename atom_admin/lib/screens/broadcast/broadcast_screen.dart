@@ -1,13 +1,39 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:atom_admin/providers/broadcasts_provider.dart';
 import 'package:atom_admin/core/widgets/app_error_view.dart';
 
-class BroadcastScreen extends ConsumerWidget {
+class BroadcastScreen extends ConsumerStatefulWidget {
   const BroadcastScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BroadcastScreen> createState() => _BroadcastScreenState();
+}
+
+class _BroadcastScreenState extends ConsumerState<BroadcastScreen> {
+  Timer? _refreshTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshTimer = Timer.periodic(const Duration(seconds: 3), (_) {
+      final broadcasts = ref.read(broadcastListProvider).valueOrNull;
+      if (broadcasts?.any((item) => item['status'] == 'sending') ?? false) {
+        ref.invalidate(broadcastListProvider);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _refreshTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final broadcastsAsync = ref.watch(broadcastListProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('Broadcasts'), actions: [IconButton(icon: const Icon(Icons.add), onPressed: () => _create(context, ref))]),
@@ -16,7 +42,7 @@ class BroadcastScreen extends ConsumerWidget {
           itemCount: list.length,
           itemBuilder: (_, i) => ListTile(
             title: Text(list[i]['content']),
-            subtitle: Text('Status: ${list[i]['status']}\nSent: ${list[i]['sent_count'] ?? 0}  Failed: ${list[i]['failed_count'] ?? 0}  Processed: ${(list[i]['sent_count'] ?? 0) + (list[i]['failed_count'] ?? 0)}'),
+            subtitle: Text('Status: ${list[i]['status']}\nAll users: ${list[i]['total_users_count'] ?? 0}  Target: ${list[i]['target_count'] ?? 0}\nSent: ${list[i]['sent_count'] ?? 0}  Failed: ${list[i]['failed_count'] ?? 0}  Processed: ${(list[i]['sent_count'] ?? 0) + (list[i]['failed_count'] ?? 0)}'),
             trailing: IconButton(icon: const Icon(Icons.delete_outline), onPressed: () async { await ref.read(broadcastActionsProvider).delete((list[i]['id'] as num).toInt()); ref.invalidate(broadcastListProvider); }),
           ),
         ),

@@ -28,6 +28,8 @@ class Broadcast(Base):
     target_languages = Column(JSON, nullable=True)
     target_user_ids = Column(JSON, nullable=True)
     status = Column(Enum(BroadcastStatus), default=BroadcastStatus.draft)
+    total_users_count = Column(Integer, default=0)
+    target_count = Column(Integer, default=0)
     sent_count = Column(Integer, default=0)
     delivered_count = Column(Integer, default=0)
     failed_count = Column(Integer, default=0)

@@ -22,6 +22,8 @@ class BroadcastUpdate(BaseModel):
 class Broadcast(BroadcastBase):
     id: int
     status: BroadcastStatus
+    total_users_count: int
+    target_count: int
     sent_count: int
     delivered_count: int
     failed_count: int
