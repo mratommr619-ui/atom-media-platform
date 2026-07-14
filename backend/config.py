@@ -22,7 +22,8 @@ class Settings(BaseSettings):
     MINI_APP_URL: str = "https://your-mini-app.web.app"
     ADMIN_CHAT_ID: str = "your-admin-chat-id"
     ADMIN_TELEGRAM_IDS: List[int] = []
-    ADMIN_PASSWORD: str = "253619Aunthtoonaung"
+    # Production must provide this through the deployment environment.
+    ADMIN_PASSWORD: str = "change-this-in-production"
     
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
     
