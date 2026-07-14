@@ -1,0 +1,21 @@
+from fastapi import APIRouter
+from backend.api.v1 import advertisements, auth, movies, series, episodes, videos, search, import_telegram, dashboard, broadcasts, polls, reports, users, favorites, watch_history, mini_app, languages
+
+api_router = APIRouter()
+api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
+api_router.include_router(movies.router, prefix="/movies", tags=["movies"])
+api_router.include_router(series.router, prefix="/series", tags=["series"])
+api_router.include_router(episodes.router, prefix="/episodes", tags=["episodes"])
+api_router.include_router(videos.router, prefix="/videos", tags=["videos"])
+api_router.include_router(search.router, prefix="/search", tags=["search"])
+api_router.include_router(import_telegram.router, prefix="/import", tags=["import"])
+api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
+api_router.include_router(broadcasts.router, prefix="/broadcasts", tags=["broadcasts"])
+api_router.include_router(polls.router, prefix="/polls", tags=["polls"])
+api_router.include_router(reports.router, prefix="/reports", tags=["reports"])
+api_router.include_router(users.router, prefix="/users", tags=["users"])
+api_router.include_router(advertisements.router, prefix="/advertisements", tags=["advertisements"])
+api_router.include_router(favorites.router, prefix="/favorites", tags=["favorites"])
+api_router.include_router(watch_history.router, prefix="/watch-history", tags=["watch history"])
+api_router.include_router(mini_app.router, prefix="/mini-app", tags=["mini app"])
+api_router.include_router(languages.router, prefix="/languages", tags=["languages"])

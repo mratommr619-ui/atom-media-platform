@@ -1,0 +1,10 @@
+from sqlalchemy import Column, Integer, String
+from backend.database import Base
+
+class Language(Base):
+    __tablename__ = "languages"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    code = Column(String(10), unique=True, nullable=False)
+    name = Column(String(50), nullable=False)
+    flag = Column(String(10), nullable=True)

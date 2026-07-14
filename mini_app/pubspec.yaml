@@ -1,0 +1,30 @@
+name: mini_app
+description: Atom Media Telegram Mini App
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  url_launcher: ^6.2.2
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: MyanmarText
+      fonts:
+        - asset: assets/fonts/MyanmarText-Regular.ttf
+        - asset: assets/fonts/MyanmarText-Bold.ttf
+          weight: 700

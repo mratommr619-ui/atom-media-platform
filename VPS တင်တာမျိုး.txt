@@ -1,0 +1,14 @@
+cd /d D:\atom_media_platform
+
+scp -r .env docker-compose.yml nginx.conf alembic.ini alembic backend administrator@93.127.139.154:/home/administrator/atom_media_platform/
+
+ssh administrator@93.127.139.154 "cd /home/administrator/atom_media_platform && docker-compose down && docker-compose up -d --build"
+
+curl http://93.127.139.154/api/v1/auth/login -X POST -H "Content-Type: application/json" -d "{\"telegram_id\":1715890141}"
+
+
+မအောင်မြင်ခဲ့ရင်
+ssh administrator@93.127.139.154
+cd /home/administrator/atom_media_platform
+docker-compose logs --tail=50
+

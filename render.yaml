@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: atom-media-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: BOT_MODE
+        value: webhook
+      - key: WEBHOOK_BASE_URL
+        sync: false
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: atom-media-db
+          property: connectionString
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_CHAT_ID
+        sync: false
+      - key: ADMIN_TELEGRAM_IDS
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: MINI_APP_URL
+        sync: false
+      - key: BACKEND_CORS_ORIGINS
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+databases:
+  - name: atom-media-db
+    plan: free
+    databaseName: atom_media
+    user: atom_media
